@@ -13,7 +13,6 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
 
-  <!-- Custom Style -->
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -81,34 +80,61 @@
       font-size: 1rem;
       line-height: 1.6;
     }
+
+    .sub-links {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+
+    .sub-links li {
+      border: none;
+      padding: 0.3rem 0;
+      margin: 0;
+      background: none;
+    }
+
+    .sub-links li:hover {
+      box-shadow: none;
+    }
   </style>
 </head>
 <body>
   <h1>Wasserstein Descent \( \dot{H}^1 \) Ascent (WDHA) Demo</h1>
   <h2>Welcome to WDHA Documentation!</h2>
 
-  <div class="paper-box">
-    This page is part of the documentation for our paper:<br>
-    <strong>
-      "<a href="https://arxiv.org/pdf/2501.14635" target="_blank">
-        Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
-      </a>"
-    </strong><br>
-    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen, 2025</em>
-  </div>
+<p>This page is part of the documentation for our paper:</p>
+<div class="paper-box">
+  <strong>
+    "<a href="https://arxiv.org/pdf/2501.14635" target="_blank">
+      Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
+    </a>"
+  </strong><br>
+  <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen</em><br>
+  <em>International Conference on Machine Learning (ICML), 2025</em>
+</div>
 
-  <div class="description">
-    We present experiments for our WDHA algorithm on two datasets:
-    <ol>
-      <li>Uniform distributions with varying support shapes</li>
-      <li>High-resolution (500×500) handwritten digit images</li>
-    </ol>
-    You can see detailed comparisons with Sinkhorn-based methods in Section 4 ("Numerical Studies") of our paper.
-  </div>
 
   <ul>
-    <li><a href="examples/Sythentic Uniform Distributions.html">Synthetic Uniform Distributions</a></li>
-    <li><a href="examples/High-resolution Handwritten Digits.html">High-resolution Handwritten Digits</a></li>
+    <li>
+      <strong>1. Uniform distributions with varying support</strong>
+      <div class="sub-description">
+        We demonstrate WDHA on synthetic uniform distributions with different shape(support).
+      </div>
+      <ul class="sub-links">
+        <li><a href="examples/Sythentic Uniform Distributions.html">View demo</a></li>
+      </ul>
+    </li>
+  
+    <li>
+      <strong>2. High-resolution handwritten digit images</strong>
+      <div class="sub-description">
+        WDHA is applied to the barycenter problem for high-resolution(500×500) digit 8 data.
+      </div>
+      <ul class="sub-links">
+        <li><a href="examples/High-resolution Handwritten Digits.html">View demo</a></li>
+      </ul>
+    </li>
   </ul>
+  
 </body>
 </html>
