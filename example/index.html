@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WDHA Notebook Demos</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <!-- Custom Style -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      background-color: #fafafa;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.3s ease;
+    }
+
+    li:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    a {
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Wasserstein Descent \( \dot{H}^1 \) Ascent (WDHA) Demo</h1>
+
+
+  <div class="paper-box">
+    This page showcases <em>Wasserstein Descent</em> and <em>\( \dot{H}^1 \)</em> Ascent methods described in our paper : <br>
+    <strong>
+      "<a href="https://arxiv.org/pdf/2501.14635" target="_blank">
+        Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
+      </a>"
+    </strong><br>
+    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen, 2025</em>
+    We did the experiment on 1. Uniform Distributions having different support(shape) and 2. High-resolution(500x500) handwritten digit data. You can see the detailed comparison with Sinkhorn-based methods in Section 4, "Numerical Studies," of our paper. 
+  </div>
+
+  <ul>
+    <li><a href="Sythentic Uniform Distributions.html">Synthetic Uniform Distributions</a></li>
+    <li><a href="High-resolution Handwritten Digits.html">High-resolution Handwritten Digits</a></li>
+  </ul>
+</body>
+</html>
