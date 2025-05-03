@@ -25,24 +25,27 @@
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
       text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      text-align: center;
+      font-weight: 400;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      color: #666;
     }
 
     .paper-box {
-      background-color: #eaf4ff;
-      border-left: 6px solid #3399ff;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 12px;
       padding: 1rem 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 2rem;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    .paper-box a {
-      font-weight: bold;
-      color: #0055aa;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
     }
 
     ul {
@@ -72,29 +75,39 @@
     a:hover {
       text-decoration: underline;
     }
+
+    .description {
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
   <h1>Wasserstein Descent \( \dot{H}^1 \) Ascent (WDHA) Demo</h1>
+  <h2>Welcome to WDHA Documentation!</h2>
 
   <div class="paper-box">
-    This page showcases <em>Wasserstein Descent</em> and <em>\( \dot{H}^1 \)</em> Ascent methods described in our paper:<br><br>
+    This page is part of the documentation for our paper:<br>
     <strong>
-      <a href="https://arxiv.org/pdf/2501.14635" target="_blank">
+      "<a href="https://arxiv.org/pdf/2501.14635" target="_blank">
         Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
-      </a>
+      </a>"
     </strong><br>
-    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen, 2025</em><br><br>
-    We performed two experiments:
-    <ul>
-      <li>1. Uniform distributions with different support shapes</li>
-      <li>2. High-resolution (500×500) handwritten digit data</li>
-    </ul>
-    See detailed comparisons with Sinkhorn-based methods in Section 4, "Numerical Studies," of our paper.
+    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen, 2025</em>
+  </div>
+
+  <div class="description">
+    We present experiments for our WDHA algorithm on two datasets:
+    <ol>
+      <li>Uniform distributions with varying support shapes</li>
+      <li>High-resolution (500×500) handwritten digit images</li>
+    </ol>
+    You can see detailed comparisons with Sinkhorn-based methods in Section 4 ("Numerical Studies") of our paper.
   </div>
 
   <ul>
-    <li><a href="examples/Synthetic Uniform Distributions.html">Synthetic Uniform Distributions</a></li>
+    <li><a href="examples/Sythentic Uniform Distributions.html">Synthetic Uniform Distributions</a></li>
     <li><a href="examples/High-resolution Handwritten Digits.html">High-resolution Handwritten Digits</a></li>
   </ul>
 </body>
