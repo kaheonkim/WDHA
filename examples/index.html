@@ -30,6 +30,21 @@
       text-align: center;
     }
 
+    .paper-box {
+      background-color: #eaf4ff;
+      border-left: 6px solid #3399ff;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .paper-box a {
+      font-weight: bold;
+      color: #0055aa;
+    }
+
     ul {
       list-style-type: none;
       padding: 0;
@@ -62,20 +77,24 @@
 <body>
   <h1>Wasserstein Descent \( \dot{H}^1 \) Ascent (WDHA) Demo</h1>
 
-
   <div class="paper-box">
-    This page showcases <em>Wasserstein Descent</em> and <em>\( \dot{H}^1 \)</em> Ascent methods described in our paper : <br>
+    This page showcases <em>Wasserstein Descent</em> and <em>\( \dot{H}^1 \)</em> Ascent methods described in our paper:<br><br>
     <strong>
-      "<a href="https://arxiv.org/pdf/2501.14635" target="_blank">
+      <a href="https://arxiv.org/pdf/2501.14635" target="_blank">
         Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
-      </a>"
+      </a>
     </strong><br>
-    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen, 2025</em>
-    We did the experiment on 1. Uniform Distributions having different support(shape) and 2. High-resolution(500x500) handwritten digit data. You can see the detailed comparison with Sinkhorn-based methods in Section 4, "Numerical Studies," of our paper. 
+    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen, 2025</em><br><br>
+    We performed two experiments:
+    <ul>
+      <li>1. Uniform distributions with different support shapes</li>
+      <li>2. High-resolution (500×500) handwritten digit data</li>
+    </ul>
+    See detailed comparisons with Sinkhorn-based methods in Section 4, "Numerical Studies," of our paper.
   </div>
 
   <ul>
-    <li><a href="examples/Sythentic Uniform Distributions.html">Synthetic Uniform Distributions</a></li>
+    <li><a href="examples/Synthetic Uniform Distributions.html">Synthetic Uniform Distributions</a></li>
     <li><a href="examples/High-resolution Handwritten Digits.html">High-resolution Handwritten Digits</a></li>
   </ul>
 </body>
