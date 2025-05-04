@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>WDHA Notebook Demos</title>
+  <title>WDHA Demos</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -12,7 +12,17 @@
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
-
+  <script>
+    window.MathJax = {
+      tex: {
+        packages: {'[+]': ['bm']},
+        macros: {
+          bbNabla: "\\nabla\\mkern-12mu\\nabla"
+        }
+      }
+    };
+  </script>
+  
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -38,31 +48,25 @@
       color: #666;
     }
 
-    .paper-box {
-      background-color: #fff3cd;
-      border: 1px solid #ffeeba;
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
+    h3 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      color: #444;
     }
 
     ul {
-      list-style-type: none;
-      padding: 0;
+      list-style-type: disc;
+      padding-left: 2rem;
     }
 
     li {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 1rem;
       margin-bottom: 1rem;
-      transition: box-shadow 0.3s ease;
-    }
-
-    li:hover {
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-size: 1rem;
     }
 
     a {
@@ -75,68 +79,172 @@
       text-decoration: underline;
     }
 
-    .description {
-      margin-bottom: 2rem;
-      font-size: 1rem;
-      line-height: 1.6;
+    .highlight {
+      font-family: "Source Code Pro", monospace;
+      background-color: #fff5f5;
+      border: 1px solid #ffcccc;
+      border-radius: 3px;
+      padding: 0.05em 0.3em;
+      font-size: 0.9em;
+      color: #cc0000;
     }
 
-    .sub-links {
+    figure {
+      text-align: center;
+      margin: 1rem auto;
+    }
+
+    figcaption {
       margin-top: 0.5rem;
-      padding-left: 1rem;
+      font-style: italic;
+      color: #555;
     }
 
-    .sub-links li {
-      border: none;
-      padding: 0.3rem 0;
-      margin: 0;
-      background: none;
+    img {
+      width: 300px;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
     }
 
-    .sub-links li:hover {
-      box-shadow: none;
+    .paper-box {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background-color: #f0f0f0;
+      border: 2px solid #0066cc;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 300px;
+      background-color: #f0f0f0;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .sidebar h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    .sidebar a:hover {
+      color: #0056b3;
     }
   </style>
 </head>
+
 <body>
-  <h1>Wasserstein Descent \( \dot{H}^1 \) Ascent (WDHA) Demo</h1>
-  <h2>Welcome to WDHA Documentation!</h2>
+  <header>
+    <h1>Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) Documentation</h1>
+  </header>
 
-<p>This documentation describes the implementation for Wasserstein Descent \( \dot{H}^1 \) Ascent (WDHA) algorithm for computing Optimal Transport Barycenter(a.k.a Wasserstein Barycenter) introduced in our paper:</p>
-<div class="paper-box">
-  <strong>
-    "<a href="https://arxiv.org/pdf/2501.14635" target="_blank">
-      Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
-    </a>"
-  </strong><br>
-  <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen</em><br>
-  <em>International Conference on Machine Learning (ICML), 2025</em>
-</div>
-<p>It is built on top of some of the core functionality (c-transforms and pushforward measure) provided by Flavien Leger in the <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>.</p>
-
-
-  <ul>
-    <li>
-      <strong>1. Uniform distributions with varying support</strong>
-      <div class="sub-description">
-        We demonstrate WDHA on synthetic uniform distributions with different shape(support).
-      </div>
-      <ul class="sub-links">
-        <li><a href="examples/htmls/Sythentic Uniform Distributions.html">View demo</a></li>
-      </ul>
-    </li>
   
-    <li>
-      <strong>2. High-resolution handwritten digit images</strong>
-      <div class="sub-description">
-        WDHA is applied to the barycenter problem for high-resolution(500×500) digit 8 data.
-      </div>
-      <ul class="sub-links">
-        <li><a href="examples/htmls/High-resolution Handwritten Digits.html">View demo</a></li>
+  <div class="sidebar">
+    <h4>Contents</h4>
+    <ul>
+      <a href="#intro">1. Introduction</a>
+      <ul>
+        <a href="#intro-1">1.1 Formulation</a>
+        <a href="#intro-2">1.2 Algorithm</a>
       </ul>
-    </li>
-  </ul>
-  <p>To run the notebooks for the example, you can download the ipynb files and py files from folder "implementation2D" in <a href="https://github.com/kaheonkim/WDHA">the repository</a>.</p>
+      <a href="#impl">2. Implementation</a>
+      <ul>
+        <a href="#impl-1">2.1 Uniform Distributions with Varying Support</a>
+        <a href="#impl-2">2.2 High-resolution Handwritten Digit Images</a>
+      </ul>
+    </ul>
+  </div>
 
+  <p>Welcome to WDHA Documentation! This documentation describes the implementation for "Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) algorithm" for computing Optimal Transport Barycenter (a.k.a Wasserstein Barycenter) introduced in our paper:</p>
+
+  <div class="paper-box">
+    <strong>
+      "Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization"<a href="https://arxiv.org/pdf/2501.14635" target="_blank"> [Link]</a>
+    </strong><br>
+    <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen</em><br>
+    <em>International Conference on Machine Learning (ICML), 2025</em>
+  </div>
+
+  <section id="intro">
+    <h3>1. Introduction</h3>
+    <section id="intro-1">
+      <h4>1.1. Formulation</h4>
+      <p>We approach Wasserstein barycenter problem as nonconvex-concave minimax problem between Wasserstein space and Sobolev space.</p>
+      <div>
+        \[
+        \begin{align*}
+        \bar{\mu} &= \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^nW_2^2(\nu,\mu_i) \\
+        &= \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^n\max_{\varphi_i : \text{convex}} 
+        \underbrace{
+        \int\left(\frac{\|x\|_2^2}{2}-\varphi_i(x)\right) d\nu(x) + 
+        \int\left(\frac{\|y\|_2^2}{2}-\varphi_i^*(y)\right) d\mu_i(y)
+        }_{\mathcal{I}_{\nu}^{\mu_i}(\varphi_i)}
+        \end{align*}
+        \]
+      </div>
+    </section>
+    <section id="intro-2">
+      <h4>1.2. Algorithm</h4>
+      <p>To tackle this minimax problem, we introduce Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) algorithm:</p>
+      <p style="text-align: center;">
+        <img src="examples/images/alg2.png" alt="WDHA Algorithm" style="width: 100%; height: auto; max-width: 700px;">
+      </p>
+
+      <ul>
+        <li>Wasserstein Gradient: \(\boldsymbol{\nabla} \mathcal{J}(\nu, \boldsymbol{\varphi}) = \text{id} - \nabla \bar{\varphi}, \text{ where } \bar{\varphi} = \frac{1}{n}\sum_{i=1}^n \varphi_i\)</li>
+        <li>\(\dot{\mathbb{H}}^1\)-Gradient: \(\bbNabla_{\varphi_i} \mathcal{J}(\nu, \boldsymbol{\varphi}) = \frac{1}{n}(-\Delta)^{-1}(-\nu + (\nabla \varphi_i^*)_\# \mu_i)\)</li>
+        <li>Convex Hull: \( (\cdot)^{**}\) where \( f^*(y) = \sup_{x\in \Omega} \left< x,y \right>-f(x)\) with \(f:\Omega\rightarrow \mathbb{R}\)</li>
+      </ul>
+    </section>
+  </section>
+
+  <section id="impl">
+    <h3>2. Implementation</h3>
+    <p>The function for WDHA is built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
+    <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>. To run the notebooks for the examples, download
+    <span class="highlight">functions.py</span> and <span class="highlight">metric.py</span> from folder "implementation2D" in the <a href="https://github.com/kaheonkim/WDHA">repository</a>.
+    We recommend to use Google Colab to run the code.</p>
+    <p>You can see detailed comparison for the examples with Sinkhorn-type methods in the paper.</p>
+    <section id="impl-1">
+      <h4>2.1. Uniform Distributions with Varying Support</h4>
+      <p>We demonstrate WDHA on 4 synthetic uniform distributions with different supports. 
+        <a href="examples/htmls/Sythentic Uniform Distributions.html">[Notebook]</a></p>
+      <div style="display: flex; gap: 2rem; justify-content: center;">
+        <figure>
+          <img src="examples/images/uniform/original.png" alt="4 Uniform Densities">
+          <figcaption>4 Uniform Densities</figcaption>
+        </figure>
+        <figure>
+          <img src="examples/images/uniform/wdha.png" alt="WDHA Barycenter">
+          <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="impl-2">
+      <h4>2.2. High-resolution Handwritten Digit Images</h4>
+      <p>WDHA is applied to the barycenter problem for 100 high-resolution (500×500) digit 8 images. 
+        <a href="examples/htmls/High-resolution Handwritten Digits.html">[Notebook]</a></p>
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+          <figure style="flex: 1;">
+            <img src="examples/images/digits/original.png" alt="Exemplary Digits 8" style="width: auto; height: auto; max-height: 200px;">
+            <figcaption>Exemplary Digits 8</figcaption>
+          </figure>
+          <figure style="flex: 1;">
+            <img src="examples/images/digits/wdha.png" alt="Wasserstein Barycenter computed by WDHA" style="width: auto; height: auto; max-height: 200px;">
+            <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
+          </figure>
+        </div>
+    </section>
+  </section>
 </body>
 </html>
