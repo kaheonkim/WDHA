@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>WDHA Demos</title>
@@ -22,11 +22,11 @@
       }
     };
   </script>
-  
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
       padding: 2rem;
       background-color: #fafafa;
@@ -116,53 +116,96 @@
       text-align: left;
     }
 
+    .container {
+      display: flex;
+      max-width: 1000px;
+      margin: auto;
+      gap: 2rem;
+    }
     .sidebar {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 300px;
-      background-color: #f0f0f0;
-      padding: 0.5rem;
-      border-radius: 8px;
+      width: 250px; /* 사이드바의 너비를 좁힙니다 */
+      background-color: #ecf0f1;
+      color: white;
+      padding: 20px;
+      position: fixed; /* 고정 위치 */
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+
+    .main-content {
+      margin-left: 100px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+      padding: 20px;
+      width: calc(100% - 100px); /* 사이드바 너비를 제외한 나머지 공간을 사용 */
+      background-color: white;
     }
 
     .sidebar h4 {
-      font-size: 1.1rem;
       margin-bottom: 1rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3rem;
     }
 
-    .sidebar a {
-      display: block;
+    .sidebar ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .sidebar ul li {
       margin: 0.5rem 0;
     }
 
+    .sidebar ul ul {
+      margin-left: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: #007bff;
+      transition: color 0.3s, background-color 0.3s;
+      padding: 4px 8px;
+      display: inline-block;
+      border-radius: 6px;
+    }
+
     .sidebar a:hover {
+      background-color: #e9ecef;
       color: #0056b3;
     }
+
+    .markdown-cell { margin: 1em 0; line-height: 1.6; }
+    .code-cell { background: #f5f5f5; border-left: 5px solid #007acc; padding: 1em; margin: 1em 0; font-family: monospace; white-space: pre-wrap; }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) Documentation</h1>
-  </header>
 
-  
-  <div class="sidebar">
-    <h4>Contents</h4>
-    <ul>
-      <a href="#intro">1. Introduction</a>
+  <div class="container">
+    <div class="sidebar">
+      <h4>Contents</h4>
       <ul>
-        <a href="#intro-1">1.1 Formulation</a>
-        <a href="#intro-2">1.2 Algorithm</a>
+        <li><a href="#intro">1. Introduction</a>
+          <ul>
+            <li><a href="#intro-1">1.1 Formulation</a></li>
+            <li><a href="#intro-2">1.2 Algorithm</a></li>
+          </ul>
+        </li>
+        <li><a href="#impl">2. Implementation</a>
+          <ul>
+            <li><a href="#impl-1">2.1 Uniform Distributions with Varying Support</a></li>
+            <li><a href="#impl-2">2.2 High-resolution Handwritten Digit Images</a></li>
+          </ul>
+        </li>
       </ul>
-      <a href="#impl">2. Implementation</a>
-      <ul>
-        <a href="#impl-1">2.1 Uniform Distributions with Varying Support</a>
-        <a href="#impl-2">2.2 High-resolution Handwritten Digit Images</a>
-      </ul>
-    </ul>
-  </div>
+    </div>
+  <div class="main-content">
+    <header>
+      <h1>Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) Documentation</h1>
+    </header>
 
   <p>Welcome to WDHA Documentation! This documentation describes the implementation for "Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) algorithm" for computing Optimal Transport Barycenter (a.k.a Wasserstein Barycenter) introduced in our paper:</p>
 
@@ -173,12 +216,14 @@
     <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen</em><br>
     <em>International Conference on Machine Learning (ICML), 2025</em>
   </div>
+  This documentation shows implementations for 2D probability densities done in <strong>Section 4.Numerical Studies</strong> of the paper. 
+  Full version of codes listed in the <a href="https://github.com/kaheonkim/WDHA">repository</a> provide detailed comparison and analysis for the examples with Sinkhorn-type methods in the paper.
 
   <section id="intro">
     <h3>1. Introduction</h3>
     <section id="intro-1">
       <h4>1.1. Formulation</h4>
-      <p>We approach Wasserstein barycenter problem as nonconvex-concave minimax problem between Wasserstein space and Sobolev space.</p>
+      <p>Combining with Kantorovich formulation, We approach Wasserstein barycenter problem as nonconvex-concave minimax problem between Wasserstein space and Sobolev space.</p>
       <div>
         \[
         \begin{align*}
@@ -206,45 +251,126 @@
       </ul>
     </section>
   </section>
-
-  <section id="impl">
-    <h3>2. Implementation</h3>
-    <p>The function for WDHA is built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
-    <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>. To run the notebooks for the examples, download
-    <span class="highlight">functions.py</span> and <span class="highlight">metric.py</span> from folder "implementation2D" in the <a href="https://github.com/kaheonkim/WDHA">repository</a>.
-    We recommend to use Google Colab to run the code.</p>
-    <p>You can see detailed comparison for the examples with Sinkhorn-type methods in the paper.</p>
-    <section id="impl-1">
-      <h4>2.1. Uniform Distributions with Varying Support</h4>
-      <p>We demonstrate WDHA on 4 synthetic uniform distributions with different supports. 
-        <a href="examples/htmls/Sythentic Uniform Distributions.html">[Notebook]</a></p>
-      <div style="display: flex; gap: 2rem; justify-content: center;">
-        <figure>
-          <img src="examples/images/uniform/original.png" alt="4 Uniform Densities">
-          <figcaption>4 Uniform Densities</figcaption>
-        </figure>
-        <figure>
-          <img src="examples/images/uniform/wdha.png" alt="WDHA Barycenter">
-          <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section id="impl-2">
-      <h4>2.2. High-resolution Handwritten Digit Images</h4>
-      <p>WDHA is applied to the barycenter problem for 100 high-resolution (500×500) digit 8 images. 
-        <a href="examples/htmls/High-resolution Handwritten Digits.html">[Notebook]</a></p>
-        <div style="display: flex; gap: 2rem; align-items: flex-start;">
-          <figure style="flex: 1;">
-            <img src="examples/images/digits/original.png" alt="Exemplary Digits 8" style="width: auto; height: auto; max-height: 200px;">
-            <figcaption>Exemplary Digits 8</figcaption>
-          </figure>
-          <figure style="flex: 1;">
-            <img src="examples/images/digits/wdha.png" alt="Wasserstein Barycenter computed by WDHA" style="width: auto; height: auto; max-height: 200px;">
-            <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
-          </figure>
-        </div>
-    </section>
+</section id ="Implementation">
+  <h3>2. Implementation</h3>
+<p>The function for WDHA is built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
+  <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>. To run the notebooks for the examples, download
+  <span class="highlight">functions.py</span> and <span class="highlight">metric.py</span> from folder "implementation2D" in the <a href="https://github.com/kaheonkim/WDHA">repository</a>.
+  We recommend to use Google Colab to run the code.</p>
+  <pre class="code-cell"><code>
+  !git clone https://github.com/Math-Jacobs/bfm
+  !pip install bfm/python
+  !pip install pot</code></pre>
+  <pre class="code-cell"><code>
+  from google.colab import drive
+  drive.mount('/content/drive', force_remount = True)</code></pre>
+  <pre class="code-cell"><code>
+  import sys
+  sys.path.append('drive/MyDrive/WDHA') # Change the address of the directory before running this cell.
+  
+  import numpy as np
+  from metric import *
+  from functions import *
+  
+  %config InlineBackend.figure_format = 'retina'
+  plt.rcParams['figure.figsize'] = (13, 8)
+  plt.rcParams['image.cmap'] = 'viridis'</code></pre>
+  <section id="impl-1">
+    <h4>2.1. Uniform Distributions with Varying Support</h4>
+    <p>
+      We demonstrate WDHA on 4 synthetic uniform distributions with different supports.
+    </p>
+    <pre class="code-cell"><code>
+  n1, n2 = 1024, 1024
+  x, y = np.meshgrid(np.linspace(0.5/n1, 1-0.5/n1, n1),
+                     np.linspace(0.5/n2, 1-0.5/n2, n2))
+  r = 0.1
+  # Initialize densities
+  mu1 = np.zeros((n2, n1))
+  mu1[(x-0.8)**2 + (y-0.8)**2 &lt; r**2] = 1
+  mu2 = np.zeros((n2, n1))
+  mu2[(0.8-r/2.5 &lt; x) &amp; (x &lt; 0.8+r/2.5) &amp; (0.3-r &lt; y) &amp; (y &lt; 0.3+r)] = 1
+  mu2[(0.3-r/2.5 &lt; y) &amp; (y &lt; 0.3+r/2.5) &amp; (0.8-r &lt; x) &amp; (x &lt; 0.8+r)] = 1
+  
+  # Normalize
+  mu1 *= n1*n2 / np.sum(mu1)
+  mu2 *= n1*n2 / np.sum(mu2)
+  
+  heart = np.zeros((n2, n1))
+  heart[((10*x-2)**2+(10*(y-0.3))**2-1)**3 - (10*x-2)**2*(10*(y-0.3))**3 &lt; 0] = 1
+  heart *= n1 * n2 / np.sum(heart)
+  
+  rectangle = np.zeros((n2, n1))
+  rectangle[(x &lt; 0.3) &amp; (x &gt; 0.1) &amp; (y &gt; 0.7) &amp; (y &lt; 0.9)] = 1
+  rectangle *= n1*n2 / np.sum(rectangle)
+  
+  mu = [mu1, mu2, heart, rectangle]
+  plotting(mu, np.zeros((n2,n1)), '_', save_option=False)</code></pre>
+  
+      <figure>
+        <img src="examples/images/uniform/original.png" alt="4 Uniform Densities"  style="width: 50%; height: auto;">>
+        <figcaption>4 Uniform Densities</figcaption>
+      </figure>
+      The Wasserstein Barycenter for 4 uniform distributions computed by WDHA:
+  
+    <pre class="code-cell"><code>mu_WGHA = frechet_mean(mu, 300, 'MU', save_option=False, return_option=True)</code></pre>
+  
+    <figure>
+      <img src="examples/images/uniform/wdha.png" alt="WDHA Barycenter"  style="width: 50%; height: auto;">>
+      <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
+    </figure>
   </section>
+  
+  <section id="impl-2">
+    <h4>2.2. High-resolution Handwritten Digit Images</h4>
+    <p>
+      WDHA is applied to the barycenter problem for 100 high-resolution (500×500) digit 8 images. 
+      Images(500x500).npy and WriterInfo.npy can be downloaded through the <a href="https://drive.google.com/drive/folders/1f2o1kjXLvcxRgtmMMuDkA2PQ5Zato4Or"> link</a>.</p>  
+    <pre class="code-cell"><code>
+  Images = np.load('/content/drive/My Drive/WDHA/Images(500x500).npy')
+  WriterInfo = np.load('/content/drive/My Drive/WDHA/WriterInfo.npy')
+  digit = WriterInfo[:, 0]
+  user = WriterInfo[:, -1]
+  num_image = 100
+  num_iter = 300
+  numbers8 = 255 - Images[(digit == 8)][:num_image].astype('float64')
+  
+  for j in range(num_image):
+      numbers8[j] /= np.sum(numbers8[j])
+      numbers8[j] *= 500 * 500
+  del Images, WriterInfo, user, digit</code></pre>
+  
+    <pre class="code-cell"><code>
+  fig, axes = plt.subplots(1, 3, figsize=(10, 4))  # 3 rows, 1 column
+  
+  plotting_mnist(numbers8[0], '', ax=axes[0])
+  plotting_mnist(numbers8[1], '', ax=axes[1])
+  plotting_mnist(numbers8[2], '', ax=axes[2])
+  
+  plt.tight_layout()
+  plt.show()</code></pre>
+  
+    <figure style="flex: 1;">
+      <img src="examples/images/digits/original.png" alt="Exemplary Digits 8" style="width: 100%; height: auto;">
+      <figcaption>Exemplary Digits 8</figcaption>
+    </figure>
+  
+    <div class="markdown-cell">
+      The Wasserstein Barycenter for 100 handwritten images of digit 8 computed by WDHA:
+    </div>
+  
+    <pre class="code-cell"><code>
+  bary8 = frechet_mean(numbers8, num_iter, 'mnist', plot_option=False, save_option=False, return_option=True)
+  plotting_mnist(bary8, '')</code></pre>
+  
+    <figure style="flex: 1;">
+      <img src="examples/images/digits/wdha.png" alt="WDHA Barycenter of Digits" style="width: 50%; height: auto;">>
+      <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
+    </figure>
+  </section>
+</section>
+</div>
+</div>
 </body>
+
 </html>
