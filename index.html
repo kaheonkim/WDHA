@@ -123,22 +123,23 @@
       gap: 2rem;
     }
     .sidebar {
-      width: 250px; /* 사이드바의 너비를 좁힙니다 */
+      width: 200px; /* narrower sidebar */
       background-color: #ecf0f1;
-      color: white;
       padding: 20px;
-      position: fixed; /* 고정 위치 */
+      position: fixed;
       top: 0;
       left: 0;
       height: 100%;
+      overflow-y: auto;
     }
 
     .main-content {
-      margin-left: 50px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
-      padding: 20px;
-      width: calc(100% - 50px); /* 사이드바 너비를 제외한 나머지 공간을 사용 */
+      margin-left: 220px; /* slightly more than sidebar width */
+      padding: 2rem;
       background-color: white;
+      width: calc(100% - 220px); /* remaining space */
     }
+
 
     .sidebar h4 {
       margin-bottom: 1rem;
