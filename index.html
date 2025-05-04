@@ -134,9 +134,9 @@
     }
 
     .main-content {
-      margin-left: 100px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+      margin-left: 50px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
       padding: 20px;
-      width: calc(100% - 100px); /* 사이드바 너비를 제외한 나머지 공간을 사용 */
+      width: calc(100% - 50px); /* 사이드바 너비를 제외한 나머지 공간을 사용 */
       background-color: white;
     }
 
@@ -253,21 +253,17 @@
   </section>
 </section id ="Implementation">
   <h3>2. Implementation</h3>
-<p>The function for WDHA is built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
-  <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>. To run the notebooks for the examples, download
-  <span class="highlight">functions.py</span> and <span class="highlight">metric.py</span> from folder "implementation2D" in the <a href="https://github.com/kaheonkim/WDHA">repository</a>.
-  We recommend to use Google Colab to run the code.</p>
+   <p>The function for WDHA is built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
+  <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>.</p>
   <pre class="code-cell"><code>
   !git clone https://github.com/Math-Jacobs/bfm
   !pip install bfm/python
-  !pip install pot</code></pre>
-  <pre class="code-cell"><code>
-  from google.colab import drive
-  drive.mount('/content/drive', force_remount = True)</code></pre>
-  <pre class="code-cell"><code>
-  import sys
-  sys.path.append('drive/MyDrive/WDHA') # Change the address of the directory before running this cell.
+  !pip install pot
+  !wget -O functions.py https://raw.githubusercontent.com/kaheonkim/WDHA/main/implementation2D/functions.py
+  !wget -O metric.py https://raw.githubusercontent.com/kaheonkim/WDHA/main/implementation2D/metric.py</code></pre>
   
+
+  <pre class="code-cell"><code>
   import numpy as np
   from metric import *
   from functions import *
@@ -278,7 +274,8 @@
   <section id="impl-1">
     <h4>2.1. Uniform Distributions with Varying Support</h4>
     <p>
-      We demonstrate WDHA on 4 synthetic uniform distributions with different supports.
+      Four distinct shapes are placed at four different locations: a square at the top-left, a heart at the bottom-left, a cross at the bottom-right, and a circle at the top-right. 
+      These shapes represent four uniform probability densities with distinct supports. We demonstrate the application of WDHA on these four synthetic uniform distributions.
     </p>
     <pre class="code-cell"><code>
   n1, n2 = 1024, 1024
@@ -319,13 +316,15 @@
       <img src="examples/images/uniform/wdha.png" alt="WDHA Barycenter"  style="width: 50%; height: auto;">>
       <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
     </figure>
+    You can directly run the code for this example with <a href=https://colab.research.google.com/drive/1_pGVv7BuWnXBsK_-2H9Z7EE1PzXssNXH> Google Colab Notebook</a>.
   </section>
   
   <section id="impl-2">
     <h4>2.2. High-resolution Handwritten Digit Images</h4>
     <p>
-      WDHA is applied to the barycenter problem for 100 high-resolution (500×500) digit 8 images. 
-      Images(500x500).npy and WriterInfo.npy can be downloaded through the <a href="https://drive.google.com/drive/folders/1f2o1kjXLvcxRgtmMMuDkA2PQ5Zato4Or"> link</a>.</p>  
+      WDHA is applied to the barycenter problem using 100 high-resolution (500×500) images of the digit 8, provided by Cédric Beaulac and Jeffrey S. Rosenthal 
+      in their preprint "Analysis of a high-resolution hand-written digits data set with writer characteristics". The dataset — 
+       <span class="highlight">Images(500x500).npy</span> and <span class="highlight">WriterInfo.npy</span> — is available at the following <a href="https://drive.google.com/drive/folders/1f2o1kjXLvcxRgtmMMuDkA2PQ5Zato4Or">link</a>. 
     <pre class="code-cell"><code>
   Images = np.load('/content/drive/My Drive/WDHA/Images(500x500).npy')
   WriterInfo = np.load('/content/drive/My Drive/WDHA/WriterInfo.npy')
