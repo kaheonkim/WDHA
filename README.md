@@ -1,5 +1,6 @@
 # Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization
 link : https://arxiv.org/pdf/2501.14635
+
 **Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen**  
 *International Conference on Machine Learning (ICML), 2025*
 
