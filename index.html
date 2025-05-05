@@ -197,8 +197,8 @@
         </li>
         <li><a href="#impl">2. Implementation</a>
           <ul>
-            <li><a href="#impl-1">2.1 Uniform Distributions with Varying Support</a></li>
-            <li><a href="#impl-2">2.2 High-resolution Handwritten Digit Images</a></li>
+            <li><a href="#impl-1">2.1 Example 1 </a></li>
+            <li><a href="#impl-2">2.2 Example 2 </a></li>
           </ul>
         </li>
       </ul>
@@ -217,14 +217,14 @@
     <em>Kaheon Kim, Rentian Yao, Changbo Zhu, and Xiaohui Chen</em><br>
     <em>International Conference on Machine Learning (ICML), 2025</em>
   </div>
-  This documentation shows implementations for 2D probability densities done in <strong>Section 4.Numerical Studies</strong> of the paper. 
-  Full version of codes listed in the <a href="https://github.com/kaheonkim/WDHA">repository</a> provide detailed comparison and analysis for the examples with Sinkhorn-type methods in the paper.
-
+  
   <section id="intro">
     <h3>1. Introduction</h3>
     <section id="intro-1">
       <h4>1.1. Formulation</h4>
-      <p>Combining with Kantorovich formulation, We approach Wasserstein barycenter problem as nonconvex-concave minimax problem between Wasserstein space and Sobolev space.</p>
+      <p> We are interested in finding the Wasserstein barycenter \(\bar{\mu}\) for the given probability densities \(\left\{\mu_1,\cdots,\mu_n\right\}\) 
+        <div>\[\bar{\mu} = \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^nW_2^2(\nu,\mu_i)\] </div></p>
+      <p>Combining with Kantorovich dual formulation, we approach Wasserstein barycenter problem as nonconvex-concave minimax problem between Wasserstein space and Sobolev space.</p>
       <div>
         \[
         \begin{align*}
@@ -251,11 +251,12 @@
         <li>Convex Hull: \( (\cdot)^{**}\) where \( f^*(y) = \sup_{x\in \Omega} \left< x,y \right>-f(x)\) with \(f:\Omega\rightarrow \mathbb{R}\)</li>
       </ul>
     </section>
+    You can see more details of formulation and algorithm in the <strong>Section 3. Nonconvex-Concave Minimax Formulation for Optimal Transport Barycenter</strong>.
   </section>
 </section id ="Implementation">
   <h3>2. Implementation</h3>
-   <p>The function for WDHA is built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
-  <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>.</p>
+   <p>The code is written in python and built based on the core functionality (c-transform and pushforward measure) provided by Flavien Leger in the
+  <a href="https://github.com/Math-Jacobs/bfm">BFM package</a>. The codes are also available on the <a href = 'https://github.com/kaheonkim/WDHA'>Github repository</a> as a <span class = highlight>ipynb</span> and <span class=highlight>py</span> files.</p>
   <pre class="code-cell"><code>
   !git clone https://github.com/Math-Jacobs/bfm
   !pip install bfm/python
@@ -273,7 +274,7 @@
   plt.rcParams['figure.figsize'] = (13, 8)
   plt.rcParams['image.cmap'] = 'viridis'</code></pre>
   <section id="impl-1">
-    <h4>2.1. Uniform Distributions with Varying Support</h4>
+    <h4>2.1. Example 1 : Uniform Distributions with Varying Support</h4>
     <p>
       Four distinct shapes are placed at four different locations: a square at the top-left, a heart at the bottom-left, a cross at the bottom-right, and a circle at the top-right. 
       These shapes represent four uniform probability densities with distinct supports. We demonstrate the application of WDHA on these four synthetic uniform distributions.
@@ -321,11 +322,11 @@
   </section>
   
   <section id="impl-2">
-    <h4>2.2. High-resolution Handwritten Digit Images</h4>
+    <h4>2.2. Example 2: High-resolution Handwritten Digit Images</h4>
     <p>
       WDHA is applied to the barycenter problem using 100 high-resolution (500×500) images of the digit 8, provided by Cédric Beaulac and Jeffrey S. Rosenthal 
-      in their preprint "Analysis of a high-resolution hand-written digits data set with writer characteristics". The dataset — 
-       <span class="highlight">Images(500x500).npy</span> and <span class="highlight">WriterInfo.npy</span> — is available at the following <a href="https://drive.google.com/drive/folders/1f2o1kjXLvcxRgtmMMuDkA2PQ5Zato4Or">link</a>. 
+      in their article <a href = "https://cedricbeaulac.github.io/files/Article_arXiv.pdf">"Analysis of a high-resolution hand-written digits data set with writer characteristics"</a>. The dataset — 
+       <span class="highlight">Images(500x500).npy</span> and <span class="highlight">WriterInfo.npy</span> — is available at <a href="https://drive.google.com/drive/folders/1f2o1kjXLvcxRgtmMMuDkA2PQ5Zato4Or">google drive link</a>. 
     <pre class="code-cell"><code>
   Images = np.load('/content/drive/My Drive/WDHA/Images(500x500).npy')
   WriterInfo = np.load('/content/drive/My Drive/WDHA/WriterInfo.npy')
@@ -368,6 +369,7 @@
       <figcaption>Wasserstein Barycenter computed by WDHA</figcaption>
     </figure>
   </section>
+  You can see the detailed analysis and comparison with Sinkhorn-type methods in <strong>Section 4. Numerical Studies</strong>.
 </section>
 </div>
 </div>
