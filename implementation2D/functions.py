@@ -2,11 +2,6 @@
 from w2 import BFM
 from time import time
 import numpy as np
-import numpy.ma as ma
-import seaborn as sns
-from scipy.stats import norm
-import scipy.integrate as integrate
-import gc
 import ot
 from matplotlib.colors import LinearSegmentedColormap
 
