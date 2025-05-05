@@ -117,13 +117,11 @@
     }
 
     .container {
-      display: flex;
-      max-width: 1000px;
-      margin: auto;
-      gap: 2rem;
-    }
+  display: block; /* flex 없애고 고정 레이아웃으로 전환 */
+}
+
     .sidebar {
-      width: 200px; /* narrower sidebar */
+      width: 160px;
       background-color: #ecf0f1;
       padding: 20px;
       position: fixed;
@@ -134,11 +132,26 @@
     }
 
     .main-content {
-      margin-left: 220px; /* slightly more than sidebar width */
+      margin-left: 45px; /* 왼쪽: sidebar(160px) + 여백(20px) */
+      margin-right: 15px;  /* 오른쪽: 넉넉한 여백 */
       padding: 2rem;
       background-color: white;
-      width: calc(100% - 220px); /* remaining space */
     }
+
+    /* 모바일 대응 */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+      }
+
+      .main-content {
+        margin: 0 1rem;
+      }
+}
+
 
 
     .sidebar h4 {
@@ -223,12 +236,12 @@
     <section id="intro-1">
       <h4>1.1. Formulation</h4>
       <p> We are interested in finding the Wasserstein barycenter \(\bar{\mu}\) for the given probability densities \(\left\{\mu_1,\cdots,\mu_n\right\}\) 
-        <div>\[\bar{\mu} = \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^nW_2^2(\nu,\mu_i)\] </div></p>
+        <div>\[\bar{\mu} = \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^n\mathcal{W}_2^2(\nu,\mu_i)\] </div></p>
       <p>Combining with Kantorovich dual formulation, we approach Wasserstein barycenter problem as nonconvex-concave minimax problem between Wasserstein space and Sobolev space.</p>
       <div>
         \[
         \begin{align*}
-        \bar{\mu} &= \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^nW_2^2(\nu,\mu_i) \\
+        \bar{\mu} &= \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^n\mathcal{W}_2^2(\nu,\mu_i) \\
         &= \arg\min_{\nu\in\mathcal{P}(\Omega)}\frac{1}{n}\sum_{i=1}^n\max_{\varphi_i : \text{convex}} 
         \underbrace{
         \int\left(\frac{\|x\|_2^2}{2}-\varphi_i(x)\right) d\nu(x) + 
@@ -240,7 +253,7 @@
     </section>
     <section id="intro-2">
       <h4>1.2. Algorithm</h4>
-      <p>To tackle this minimax problem, we introduce Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) algorithm:</p>
+      <p>To tackle this minimax problem, we introduce  <strong>Wasserstein Descent \( \dot{\mathbb{H}}^1 \)-Ascent (WDHA) algorithm</strong>:</p>
       <p style="text-align: center;">
         <img src="examples/images/alg2.png" alt="WDHA Algorithm" style="width: 100%; height: auto; max-width: 700px;">
       </p>
@@ -248,7 +261,7 @@
       <ul>
         <li>Wasserstein Gradient: \(\boldsymbol{\nabla} \mathcal{J}(\nu, \boldsymbol{\varphi}) = \text{id} - \nabla \bar{\varphi}, \text{ where } \bar{\varphi} = \frac{1}{n}\sum_{i=1}^n \varphi_i\)</li>
         <li>\(\dot{\mathbb{H}}^1\)-Gradient: \(\bbNabla_{\varphi_i} \mathcal{J}(\nu, \boldsymbol{\varphi}) = \frac{1}{n}(-\Delta)^{-1}(-\nu + (\nabla \varphi_i^*)_\# \mu_i)\)</li>
-        <li>Convex Hull: \( (\cdot)^{**}\) where \( f^*(y) = \sup_{x\in \Omega} \left< x,y \right>-f(x)\) with \(f:\Omega\rightarrow \mathbb{R}\)</li>
+        <li>Convex Hull: \( (\cdot)^{**}\) where \( \varphi^*(y) = \sup_{x\in \Omega} \left< x,y \right>-\varphi(x)\) is convex conjugate for \(\varphi:\Omega\rightarrow \mathbb{R}\)</li>
       </ul>
     </section>
     You can see more details of formulation and algorithm in the <strong>Section 3. Nonconvex-Concave Minimax Formulation for Optimal Transport Barycenter</strong>.
@@ -268,11 +281,7 @@
   <pre class="code-cell"><code>
   import numpy as np
   from metric import *
-  from functions import *
-  
-  %config InlineBackend.figure_format = 'retina'
-  plt.rcParams['figure.figsize'] = (13, 8)
-  plt.rcParams['image.cmap'] = 'viridis'</code></pre>
+  from functions import *</code></pre>
   <section id="impl-1">
     <h4>2.1. Example 1 : Uniform Distributions with Varying Support</h4>
     <p>
