@@ -6,8 +6,7 @@ link : https://arxiv.org/pdf/2501.14635
 
 ---
 
-This repository contains the code and experiments for our ICML 2025 paper, _"Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization."_ Please refer to the paper for theoretical details and algorithmic contributions.
-
+This repository contains the code and experiments for our ICML 2025 paper, _"Optimal Transport Barycenter via Nonconvex-Concave Minimax Optimization."_ 
 
 ## Citation
 
